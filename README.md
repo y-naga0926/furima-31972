@@ -16,7 +16,6 @@
 ### Association
 
 - has_many :items dependent: :destroy
-- belongs_to :user
 - has_many :purchase dependent: :destroy
 
 ## destination table
@@ -27,7 +26,7 @@
 | prefecture                          | string     | null: false                    |
 | city                                | string     | null: false                    |
 | address                             | string     | null: false                    |
-| building_name                       | string     | null: false                    |
+| building_name                       | string     |                     |
 | phone_number                        | string     | null: false                    |
 | purchase_id                         | integer    | null: false, foreign_key: true |
 
@@ -35,7 +34,6 @@
 
 ### Association
 
-- belongs_to :user
 
 
 
@@ -44,8 +42,8 @@
 | Column                              | Type       | Options                        |
 |-------------------------------------|------------|--------------------------------|
 | name                                | string     | null:false                     |
-| price                               | string     | null: false                    |
-| description                         | string     | null: false                    |
+| price                               | integer    | null: false                    |
+| description                         | text       | null: false                    |
 | states_id                           | integer    | null: false                    |
 | shipping_cost_id                    | integer    | null: false                    |
 | shipping_days_id                    | integer    | null: false                    |
@@ -54,7 +52,7 @@
 | category_id                         | integer    | null: false                    |
 
 ### Association
-
+- has_one :purchase
 - belongs_to :user dependent: :destroy
 - belongs_to_active_hash :prefecture, states, shipping_cost, shipping_days, category
 
@@ -67,5 +65,5 @@
 
 ### Association
 
--belongs_to :items dependent: :destroy
--belongs_to :user dependent: :destroy
+- belongs_to :items dependent: :destroy
+- belongs_to :user dependent: :destroy
