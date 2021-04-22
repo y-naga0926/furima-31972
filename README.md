@@ -17,13 +17,14 @@
 
 - has_many :items dependent: :destroy
 - has_many :purchase dependent: :destroy
+- has_one :destination
 
 ## destination table
 
 | Column                              | Type       | Options                        |
 |-------------------------------------|------------|--------------------------------|
 | post_code                           | string     | null: false                    |
-| prefecture                          | string     | null: false                    |
+| prefecture_id                       | integer    | null: false                    |
 | city                                | string     | null: false                    |
 | address                             | string     | null: false                    |
 | building_name                       | string     |                     |
@@ -33,11 +34,11 @@
 
 
 ### Association
+- belongs_to :users dependent: :destroy
 
 
 
-
-## item table
+## items table
 
 | Column                              | Type       | Options                        |
 |-------------------------------------|------------|--------------------------------|
@@ -53,7 +54,7 @@
 
 ### Association
 - has_one :purchase
-- belongs_to :user dependent: :destroy
+- belongs_to :users dependent: :destroy
 - belongs_to_active_hash :prefecture, states, shipping_cost, shipping_days, category
 
 ## purchase table
@@ -61,9 +62,9 @@
 | Column                        | Type       | Options                        |
 |-------------------------------|------------|--------------------------------|
 | user_id                       | integer    | null: false, foreign_key: true |
-| item_id                    | integer    | null: false, foreign_key: true |
+| item_id                       | integer    | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :items dependent: :destroy
-- belongs_to :user dependent: :destroy
+- belongs_to :users dependent: :destroy
