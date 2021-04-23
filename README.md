@@ -16,10 +16,10 @@
 ### Association
 
 - has_many :items dependent: :destroy
-- has_many :purchase dependent: :destroy
+- has_many :purchases dependent: :destroy
 - has_one :destination
 
-## destination table
+## destinations table
 
 | Column                              | Type       | Options                        |
 |-------------------------------------|------------|--------------------------------|
@@ -34,7 +34,7 @@
 
 
 ### Association
-- belongs_to :users dependent: :destroy
+- belongs_to :user dependent: :destroy
 
 
 
@@ -45,7 +45,7 @@
 | name                                | string     | null:false                     |
 | price                               | integer    | null: false                    |
 | description                         | text       | null: false                    |
-| states_id                           | integer    | null: false                    |
+| status_id                           | integer    | null: false                    |
 | shipping_cost_id                    | integer    | null: false                    |
 | shipping_days_id                    | integer    | null: false                    |
 | prefecture_id                       | integer    | null: false                    |
@@ -54,10 +54,10 @@
 
 ### Association
 - has_one :purchase
-- belongs_to :users dependent: :destroy
+- belongs_to :user dependent: :destroy
 - belongs_to_active_hash :prefecture, states, shipping_cost, shipping_days, category
 
-## purchase table
+## purchases table
 
 | Column                        | Type       | Options                        |
 |-------------------------------|------------|--------------------------------|
@@ -66,5 +66,5 @@
 
 ### Association
 
-- belongs_to :items dependent: :destroy
-- belongs_to :users dependent: :destroy
+- belongs_to :item dependent: :destroy
+- belongs_to :user dependent: :destroy
