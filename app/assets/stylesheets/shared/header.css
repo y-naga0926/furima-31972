@@ -102,3 +102,6 @@
   text-decoration: none;
   color: #333333;
 }
+li{
+  list-style-type: none;
+}
