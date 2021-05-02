@@ -47,7 +47,7 @@
 | description                         | text       | null: false                    |
 | status_id                           | integer    | null: false                    |
 | shipping_cost_id                    | integer    | null: false                    |
-| shipping_days_id                    | integer    | null: false                    |
+| shipping_day_id                     | integer    | null: false                    |
 | prefecture_id                       | integer    | null: false                    |
 | user                                | references | null: false, foreign_key: true |
 | category_id                         | integer    | null: false                    |
@@ -55,7 +55,7 @@
 ### Association
 - has_one :purchase
 - belongs_to :user dependent: :destroy
-- belongs_to_active_hash :prefecture, states, shipping_cost, shipping_days, category
+- belongs_to_active_hash :prefecture, states, shipping_cost, shipping_day, category
 
 ## purchases table
 
