@@ -10,12 +10,12 @@ RSpec.describe User, type: :model do
     describe '#create' do
       context '商品が出品できるとき' do
         it "priceが300ちょうどだと登録できる" do
-          @item.price =  "300"
+          @item.price =  300
           expect(@item).to be_valid
         end   
  
         it "priceが9999999だと登録できる" do
-          @item.price = "9999999"
+          @item.price = 9999999
           expect(@item).to be_valid
         end
 
@@ -25,6 +25,12 @@ RSpec.describe User, type: :model do
       end
 
       context '商品が出品できないとき' do
+        it 'imageが空だと登録できない' do
+          @item.image = ''
+          @item.valid?
+          expect(@item.errors.full_messsages).to include("Image can't be blank")
+        end
+
         it "nameがない場合は登録できないこと" do
           @item.name = ''
           @item.valid?
@@ -43,10 +49,35 @@ RSpec.describe User, type: :model do
           expect(@item.errors.full_messages).to include("Category is not a number")
         end
         
+        it "categoy_idが１の場合は登録できないこと"
+          @item.category_id = 1
+          @item.valid?
+          expect(@item.errors.full_messsages).to include("Category can't be blank")
+        end
+
+        it "status_idがない場合は登録できないこと" do
+          @item.status_id = ''
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Status is not a number")
+        end
+        
+        it "status_idが１の場合は登録できないこと"
+          @item.status_id = 1
+          @item.valid?
+          expect(@item.errors.full_messsages).to include("Status can't be blank")
+        end
+
+
         it "shipping_cost_idがない場合は登録できないこと" do
           @item.shipping_cost_id = ''
           @item.valid?
           expect(@item.errors.full_messages).to include("Shipping cost is not a number")
+        end
+
+        it "shipping_cost_idが１の場合は登録できないこと"
+          @item.category_id = 1
+          @item.valid?
+          expect(@item.errors.full_messsages).to include("Shipping cost is not a number")
         end
         
         it "prefecture_idがない場合は登録できないこと" do
@@ -55,8 +86,20 @@ RSpec.describe User, type: :model do
           expect(@item.errors.full_messages).to include("Prefecture is not a number")
         end
         
+        it "prefecture_idが1の場合は登録できないこと" do
+          @item.prefecture_id = 1
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Prefecture is not a number")
+        end
+
         it "shipping_day_idがない場合は登録できないこと" do
           @item.shipping_day_id = ''
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Shipping day is not a number")
+        end
+
+        it "shipping_day_idが1の場合は登録できないこと" do
+          @item.shipping_day_id = 1
           @item.valid?
           expect(@item.errors.full_messages).to include("Shipping day is not a number")
         end
@@ -74,7 +117,7 @@ RSpec.describe User, type: :model do
         end
 
         it "priceが10000000だと登録できないこと" do
-          @item.price = "10000000"
+          @item.price = 10000000
           @item.valid?
           expect(@item.errors.full_messages).to include("Price must be less than 10000000")
         end
