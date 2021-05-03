@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    # @user = FactoryBot.build(:user)
     @item = FactoryBot.build(:item)
   end
 
@@ -122,6 +121,11 @@ RSpec.describe User, type: :model do
         end
         it 'priceが半角数字でなければ登録できない' do
           @item.price = 'ゼンカク'
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price is not a number")
+        end
+        it 'priceが半角英数混合では登録できない' do
+          @item.price = 'abc500'
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is not a number")
         end
