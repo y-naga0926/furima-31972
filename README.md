@@ -69,3 +69,4 @@
 - belongs_to :item dependent: :destroy
 - belongs_to :user dependent: :destroy
 - has_one :destination
+
