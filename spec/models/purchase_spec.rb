@@ -19,6 +19,11 @@ RSpec.describe PurchaseDestination, type: :model do
           @purchase.phone_number = 11111111111
           expect(@purchase).to be_valid
         end
+
+        it "建物名がない場合も登録できること" do
+          @purchase.building_name = nil
+          expect(@purchase).to be_valid
+        end
       end
 
       context '商品が購入できないとき' do
@@ -42,6 +47,43 @@ RSpec.describe PurchaseDestination, type: :model do
           @purchase.valid?
           expect(@purchase.errors.full_messages).to include("Phone number is invalid.")
         end
+
+        it '郵便番号が空だと登録できない' do
+          @purchase.post_code = nil
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("Post code can't be blank")
+        end
+
+        it '市区町村が空だと登録できない' do
+          @purchase.city = nil
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("City can't be blank")
+        end
+
+        it '番地が空だと登録できない' do
+          @purchase.address = nil
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("Address can't be blank")
+        end
+
+        it '電話番号が空だと登録できない' do
+          @purchase.phone_number = nil
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("Phone number can't be blank")
+        end
+
+        it 'prefecture_idが0だと登録できない' do
+          @purchase.prefecture_id = 0
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("Prefecture can't be blank")
+        end
+
+        it '電話番号が半角英数字混合だと登録できない' do
+          @purchase.phone_number = 'abc11111111'
+          @purchase.valid?
+          expect(@purchase.errors.full_messages).to include("Phone number is invalid.")
+        end
+
         it "tokenが空では登録できないこと" do
           @purchase.token = nil
           @purchase.valid?

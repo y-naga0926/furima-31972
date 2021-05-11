@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :item_signin, only: [:edit, :update, :destroy]
+  before_action :purchase_present, only: [:edit, :update]
+
 
   def index
     @item = Item.all.order("created_at DESC")
@@ -24,10 +26,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-     if @item.purchase.present?
-       redirect_to root_path
-     end
-
   end
 
   def update
@@ -61,4 +59,11 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :category_id, :status_id, :shipping_cost_id, :shipping_day_id, :prefecture_id, :price, :description, :user, :image).merge(user_id: current_user.id)
   end
+  
+  def purchase_present
+    if @item.purchase.present?
+      redirect_to root_path
+    end
+  end
+  
 end
